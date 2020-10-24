@@ -1,7 +1,17 @@
 require 'net/http'
 
 class Crawler
-  SOURCES = ['https://traversemountainpetcare.com/fun-facts-and-information/fun-cat-facts-for-kids/']
+  SOURCES = [
+    'https://en.wikipedia.org/wiki/Cat',
+    'https://www.polygon.com/2019/7/18/20696129/cats-2019-musical-trailer-explained',
+    'https://www.purina.co.uk/cats/behaviour-and-training/understanding-cat-behaviour/fun-facts-about-cats',
+    'https://www.purina.com/articles/cat/facts/10-fascinating-facts-about-cats',
+
+    'https://en.wikipedia.org/wiki/Donald_Trump',
+    'https://www.whitehouse.gov/people/donald-j-trump/',
+    'https://edition.cnn.com/2020/10/24/politics/donald-trump-joe-biden-oil-fracking-election-2020/index.html',
+    'https://projects.fivethirtyeight.com/trump-approval-ratings/'
+  ]
 
   def self.index!
     new.index!
@@ -18,7 +28,11 @@ class Crawler
   def scan(source)
     response = request(source)
     tokens = Tokenizer.call(response)
-    store(tokens, source)
+
+    # take first half of tokens to speed up indexing
+    reduced_tokens = tokens.each_slice((tokens.size / 2.0).round).to_a.first
+
+    store(reduced_tokens, source)
   end
 
   def request(source)
@@ -35,10 +49,27 @@ class Crawler
   end
 
   def coefficient(token:, source:)
-    source.count(token) * Math.log(Token.where(word: token).count.to_f / sources_count.to_f)
+    inverse_frequency = Math.log(sources_count.to_f / sources_with(token).to_f)
+    source.count(token) * inverse_frequency
+  end
+
+  def sources_with(token)
+    count = Token.where(word: token).count
+
+    if count.zero?
+      1
+    else
+      count
+    end
   end
 
   def sources_count
-    @sources_count ||= Token.sources_count
+    count = Token.sources_count
+
+    if count.zero?
+      1
+    else
+      count
+    end
   end
 end
