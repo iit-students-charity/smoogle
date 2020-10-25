@@ -1,0 +1,5 @@
+<%= render partial: 'search_form', locals: { query: @query } %>
+
+<% @results.each do |result| %>
+  <%= link_to result, result %><br>
+<% end %>

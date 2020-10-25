@@ -29,8 +29,8 @@ class Crawler
     response = request(source)
     tokens = Tokenizer.call(response)
 
-    # take first half of tokens to speed up indexing
-    reduced_tokens = tokens.each_slice((tokens.size / 2.0).round).to_a.first
+    # take first 1/3 of tokens to speed up indexing
+    reduced_tokens = tokens.each_slice((tokens.size / 3.0).round).to_a.first
 
     store(reduced_tokens, source)
   end
