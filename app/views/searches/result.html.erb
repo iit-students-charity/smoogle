@@ -1,5 +1,13 @@
 <%= render partial: 'search_form', locals: { query: @query } %>
 
+<% if @results.empty? %>
+  <div class='no-results'>
+    <span>No results found :(</span>
+  </div>
+<% end %>
+
 <% @results.each do |result| %>
-  <%= link_to result, result %><br>
+  <div class='result'>
+    <%= link_to result, result %><br>
+  </div>
 <% end %>

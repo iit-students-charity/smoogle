@@ -6,6 +6,6 @@ class SearchesController < ApplicationController
 
   def result
     @query = params[:query]
-    @results = params[:results]
+    @results = params[:results] || []
   end
 end

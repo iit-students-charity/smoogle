@@ -1,0 +1,36 @@
+.search-form {
+  display: flex;
+  justify-content: space-around;
+}
+
+.smoogle {
+  font-size: 26pt;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.search-field {
+  width: 700px;
+  height: 44px;
+  font-size: 22pt;
+}
+
+.search-button {
+  height: 50px;
+  width: 100px;
+  margin-left: 10px;
+  vertical-align: top;
+  font-size: 16pt;
+}
+
+.result {
+  margin: 10px 10px 10px 25%;
+  font-size: 16pt;
+}
+
+.no-results {
+  margin-top: 25px;
+  font-size: 26pt;
+  display: flex;
+  justify-content: space-around;
+}
