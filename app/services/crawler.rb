@@ -56,20 +56,12 @@ class Crawler
   def sources_with(token)
     count = Token.where(word: token).count
 
-    if count.zero?
-      1
-    else
-      count
-    end
+    count.zero? ? 1 : count
   end
 
   def sources_count
     count = Token.sources_count
 
-    if count.zero?
-      1
-    else
-      count
-    end
+    count.zero? ? 1 : count
   end
 end
