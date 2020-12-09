@@ -1,24 +1,25 @@
-# README
+# Google-Shmoogle
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Запуск
 
-Things you may want to cover:
+```bash
+git clone https://github.com/iit-students-charity/smoogle.git
+cd smoogle
 
-* Ruby version
+bundle install
+```
 
-* System dependencies
+Создаём юзера в постгресе или поправляем config/database.yml, создаём базу:
 
-* Configuration
+```bash
+rails db:create db:migrate
+```
 
-* Database creation
+Идексируем файлы:
 
-* Database initialization
+```ruby
+rails c
+> Crawler.index!
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Запускаем сервер: `rails s`
